@@ -19,7 +19,7 @@ public class CircleLinkedList<E> {
     private Node<E> head = null;
     private Node<E> tail = null; // keeping a tail pointer to keep track of the end of list
 
-    // constructer for class.. here we will make a dummy node for circly linked list implementation
+    // constructor for class.. here we will make a dummy node for circly linked list implementation
     // with reduced error catching as our list will never be empty;
     public CircleLinkedList() {
         // creation of the dummy node
@@ -38,7 +38,9 @@ public class CircleLinkedList<E> {
     public void append(E value) {
         if (value == null) {
             // we do not want to add null elements to the list.
-            throw new NullPointerException("Cannot add null element to the list");
+            throw new NullPointerException(
+                "Cannot add null element to the list"
+            );
         }
         // head.next points to the last element;
         if (tail == null) {
@@ -51,36 +53,26 @@ public class CircleLinkedList<E> {
         size++;
     }
 
-    // utility function for teraversing the list
+    // utility function for traversing the list
     public String toString() {
         Node p = head.next;
         String s = "[ ";
         while (p != head) {
             s += p.value;
-            s += " , ";
+            if (p != tail) {
+                s += " , ";
+            }
             p = p.next;
         }
         return s + " ]";
     }
 
-    public static void main(String args[]) {
-        CircleLinkedList cl = new CircleLinkedList<Integer>();
-        cl.append(12);
-        System.out.println(cl);
-        cl.append(23);
-        System.out.println(cl);
-        cl.append(34);
-        System.out.println(cl);
-        cl.append(56);
-        System.out.println(cl);
-        cl.remove(3);
-        System.out.println(cl);
-    }
-
     public E remove(int pos) {
         if (pos > size || pos < 0) {
             // catching errors
-            throw new IndexOutOfBoundsException("position cannot be greater than size or negative");
+            throw new IndexOutOfBoundsException(
+                "position cannot be greater than size or negative"
+            );
         }
         // we need to keep track of the element before the element we want to remove we can see why
         // bellow.
@@ -100,5 +92,19 @@ public class CircleLinkedList<E> {
         destroy = null;
         size--;
         return saved;
+    }
+
+    public static void main(String[] args) {
+        CircleLinkedList cl = new CircleLinkedList<String>();
+        cl.append(12);
+        System.out.println(cl);
+        cl.append(23);
+        System.out.println(cl);
+        cl.append(34);
+        System.out.println(cl);
+        cl.append(56);
+        System.out.println(cl);
+        cl.remove(3);
+        System.out.println(cl);
     }
 }
